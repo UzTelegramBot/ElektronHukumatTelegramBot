@@ -2,7 +2,8 @@
 {
     public enum RoleManager
     {
-        Admin = 1,
-        Operator
+        Admin = 0,
+        Organizator,
+        Operator 
     }
 }

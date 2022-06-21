@@ -59,6 +59,20 @@ namespace Infrastructure.Migrations
                     b.HasIndex("RegionId");
 
                     b.ToTable("Managers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("213bcca4-2f72-4d04-b63b-2f12110133bd"),
+                            Email = "abdumurodovnodirxon@gmail.com",
+                            FirstName = "Nodirxon",
+                            LastName = "Abdumurotov",
+                            Login = "Nodirkhan",
+                            Password = "12345",
+                            PhoneNumber = "+998900255013",
+                            RegionId = new Guid("936da01f-9abd-4d9d-80c7-02af85c822a8"),
+                            Role = 0
+                        });
                 });
 
             modelBuilder.Entity("Domains.Messages", b =>
@@ -82,10 +96,15 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("LastModifiedby")
                         .HasColumnType("uuid");
 
+                    b.Property<Guid?>("ManagerId")
+                        .HasColumnType("uuid");
+
                     b.Property<int>("MessageType")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ManagerId");
 
                     b.ToTable("Messages");
                 });
@@ -133,6 +152,44 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Regions");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("936da01f-9abd-4d9d-80c7-02af85c822a8"),
+                            EngName = "O‘zbekiston Respublikasi",
+                            RegionIndex = 17,
+                            RuName = "O‘zbekiston Respublikasi",
+                            UzName = "O‘zbekiston Respublikasi"
+                        });
+                });
+
+            modelBuilder.Entity("Domains.User", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Language")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("RegionId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RegionId");
+
+                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Domains.Manager", b =>
@@ -152,6 +209,13 @@ namespace Infrastructure.Migrations
                     b.Navigation("Region");
                 });
 
+            modelBuilder.Entity("Domains.Messages", b =>
+                {
+                    b.HasOne("Domains.Manager", null)
+                        .WithMany("Messages")
+                        .HasForeignKey("ManagerId");
+                });
+
             modelBuilder.Entity("Domains.Organization", b =>
                 {
                     b.HasOne("Domains.Region", "Region")
@@ -161,6 +225,27 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Region");
+                });
+
+            modelBuilder.Entity("Domains.User", b =>
+                {
+                    b.HasOne("Domains.Region", "Region")
+                        .WithMany("Users")
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Region");
+                });
+
+            modelBuilder.Entity("Domains.Manager", b =>
+                {
+                    b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("Domains.Region", b =>
+                {
+                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

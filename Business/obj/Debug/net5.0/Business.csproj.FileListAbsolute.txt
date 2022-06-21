@@ -1,0 +1,17 @@
+C:\Users\User\Desktop\Utilities\Business\obj\Debug\net5.0\Business.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\Utilities\Business\obj\Debug\net5.0\Business.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\Utilities\Business\obj\Debug\net5.0\Business.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\Utilities\Business\obj\Debug\net5.0\Business.AssemblyInfo.cs
+C:\Users\User\Desktop\Utilities\Business\obj\Debug\net5.0\Business.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Utilities\Business\bin\Debug\net5.0\Business.deps.json
+C:\Users\User\Desktop\Utilities\Business\bin\Debug\net5.0\Business.dll
+C:\Users\User\Desktop\Utilities\Business\bin\Debug\net5.0\ref\Business.dll
+C:\Users\User\Desktop\Utilities\Business\bin\Debug\net5.0\Business.pdb
+C:\Users\User\Desktop\Utilities\Business\bin\Debug\net5.0\Domains.dll
+C:\Users\User\Desktop\Utilities\Business\bin\Debug\net5.0\Infrastructure.dll
+C:\Users\User\Desktop\Utilities\Business\bin\Debug\net5.0\Domains.pdb
+C:\Users\User\Desktop\Utilities\Business\bin\Debug\net5.0\Infrastructure.pdb
+C:\Users\User\Desktop\Utilities\Business\obj\Debug\net5.0\Business.csproj.CopyComplete
+C:\Users\User\Desktop\Utilities\Business\obj\Debug\net5.0\Business.dll
+C:\Users\User\Desktop\Utilities\Business\obj\Debug\net5.0\ref\Business.dll
+C:\Users\User\Desktop\Utilities\Business\obj\Debug\net5.0\Business.pdb

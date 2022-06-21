@@ -12,5 +12,10 @@ namespace Infrastructure.Data
         public DbSet<Region> Regions { get; set; }
         public DbSet<Organization> Organizations { get; set; }
         public DbSet<Messages> Messages { get; set; }
+        protected override void OnModelCreating(ModelBuilder buider)
+        {
+            buider.ApplyConfiguration(new DefaultRegion());
+            buider.ApplyConfiguration(new DefaultOperatorData());
+        }
     }
 }

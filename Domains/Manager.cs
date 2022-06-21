@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domains
 {
@@ -10,5 +11,6 @@ namespace Domains
         public RoleManager Role { get; set; }
         public Guid? OrganizationId { get; set; }
         public Organization Organization { get; set; }
+        public ICollection<Messages> Messages { get; set; }
     }
 }

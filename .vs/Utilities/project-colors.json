@@ -1,0 +1,41 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "db653d9c-c59e-43dc-b814-4cfc783bcb7a": {
+      "ProjectGuid": "db653d9c-c59e-43dc-b814-4cfc783bcb7a",
+      "DisplayName": "Utilities",
+      "ColorIndex": 0
+    },
+    "2adad343-593e-4bcf-9bcd-5bf7ed1d4097": {
+      "ProjectGuid": "2adad343-593e-4bcf-9bcd-5bf7ed1d4097",
+      "DisplayName": "Domains",
+      "ColorIndex": 1
+    },
+    "b745d68f-abf5-4f7a-8824-6751b308121a": {
+      "ProjectGuid": "b745d68f-abf5-4f7a-8824-6751b308121a",
+      "DisplayName": "Infrastructure",
+      "ColorIndex": 2
+    },
+    "2834b520-ed93-475a-8b51-af56c9b9d1e9": {
+      "ProjectGuid": "2834b520-ed93-475a-8b51-af56c9b9d1e9",
+      "DisplayName": "UtilitiesApi",
+      "ColorIndex": 3
+    },
+    "b7ab069b-0aa5-438a-9743-2b4d1495f6be": {
+      "ProjectGuid": "b7ab069b-0aa5-438a-9743-2b4d1495f6be",
+      "DisplayName": "UtilityApi",
+      "ColorIndex": 4
+    },
+    "3d06c4a8-796e-4919-8272-de0a68b3ae86": {
+      "ProjectGuid": "3d06c4a8-796e-4919-8272-de0a68b3ae86",
+      "DisplayName": "Business",
+      "ColorIndex": 5
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 6
+}

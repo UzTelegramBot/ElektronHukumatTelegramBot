@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Domains
 {
@@ -8,5 +9,6 @@ namespace Domains
        public Guid RegionId { get; set; }
        public Region Region { get; set; }
        public string MessageTitle { get; set; }
+       ICollection<Manager> Managers { get; set; } 
     }
 }
