@@ -16,6 +16,14 @@ namespace Business.Helpers
 
             CreateMap<Organization, OrganizationForCreationDTO>().ReverseMap();
             CreateMap<Organization, OrganizationDTO>().ReverseMap();
+
+            CreateMap<User, UserDTO>().ReverseMap();
+            CreateMap<User,UserForCreationDTO>().ReverseMap();
+
+            CreateMap<BotTextData, BotTextDataDTO>().ReverseMap();
+            CreateMap<BotTextData, BotTextDataForCreationDTO>().ReverseMap();
+
+            CreateMap<Message, MessageDTO>().ReverseMap();
         }
     }
 }

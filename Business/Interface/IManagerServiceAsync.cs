@@ -10,10 +10,10 @@ namespace Business.Interface
     public interface IManagerServiceAsync
     {
         Task<ManagerDTO> CreateAsync(ManagerForCreationDTO managerDto, string currentRegion,string currentRole);
-        Task<IReadOnlyList<ManagerDTO>> GetPageListAsync(int page, int pageSize);
-        Task<ManagerDTO> GetManagerAsync(Guid Id);
-        Task<ManagerDTO> UpdateAsync(ManagerDTO managerDto);
-        Task DeleteAsync(Guid Id);
+        Task<IReadOnlyList<ManagerDTO>> GetPageListAsync(int page, int pageSize, string ManagerId);
+        Task<ManagerDTO> GetManagerAsync(Guid Id, string CurrentManagerId);
+        Task<ManagerDTO> UpdateAsync(ManagerDTO managerDto,string currentManager);
+        Task DeleteAsync(Guid Id,string currentManager);
         Task<string> LoginAsync(string login, string password);
         Task<ManagerDTO> LoginExist(string login);
     }

@@ -19,6 +19,29 @@ namespace Infrastructure.Migrations
                 .HasAnnotation("ProductVersion", "5.0.14")
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
+            modelBuilder.Entity("Domains.BotTextData", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Eng")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Ru")
+                        .HasColumnType("text");
+
+                    b.Property<int>("TypeData")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Uz")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BotTextDatas");
+                });
+
             modelBuilder.Entity("Domains.Manager", b =>
                 {
                     b.Property<Guid>("Id")
@@ -63,7 +86,7 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("213bcca4-2f72-4d04-b63b-2f12110133bd"),
+                            Id = new Guid("68008369-419d-4d53-988e-06ebf9454de3"),
                             Email = "abdumurodovnodirxon@gmail.com",
                             FirstName = "Nodirxon",
                             LastName = "Abdumurotov",
@@ -75,7 +98,7 @@ namespace Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Domains.Messages", b =>
+            modelBuilder.Entity("Domains.Message", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -99,8 +122,8 @@ namespace Infrastructure.Migrations
                     b.Property<Guid?>("ManagerId")
                         .HasColumnType("uuid");
 
-                    b.Property<int>("MessageType")
-                        .HasColumnType("integer");
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -114,6 +137,9 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
+
+                    b.Property<string>("ContactNumber")
+                        .HasColumnType("text");
 
                     b.Property<string>("MessageTitle")
                         .HasColumnType("text");
@@ -137,14 +163,8 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<string>("EngName")
-                        .HasColumnType("text");
-
-                    b.Property<int>("RegionIndex")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("RuName")
-                        .HasColumnType("text");
+                    b.Property<long>("RegionIndex")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("UzName")
                         .HasColumnType("text");
@@ -157,18 +177,15 @@ namespace Infrastructure.Migrations
                         new
                         {
                             Id = new Guid("936da01f-9abd-4d9d-80c7-02af85c822a8"),
-                            EngName = "O‘zbekiston Respublikasi",
-                            RegionIndex = 17,
-                            RuName = "O‘zbekiston Respublikasi",
+                            RegionIndex = 17L,
                             UzName = "O‘zbekiston Respublikasi"
                         });
                 });
 
             modelBuilder.Entity("Domains.User", b =>
                 {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                    b.Property<long>("UserId")
+                        .HasColumnType("bigint");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("text");
@@ -185,17 +202,20 @@ namespace Infrastructure.Migrations
                     b.Property<Guid>("RegionId")
                         .HasColumnType("uuid");
 
-                    b.HasKey("Id");
+                    b.Property<string>("UserName")
+                        .HasColumnType("text");
+
+                    b.HasKey("UserId");
 
                     b.HasIndex("RegionId");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Domains.Manager", b =>
                 {
                     b.HasOne("Domains.Organization", "Organization")
-                        .WithMany()
+                        .WithMany("Managers")
                         .HasForeignKey("OrganizationId");
 
                     b.HasOne("Domains.Region", "Region")
@@ -209,7 +229,7 @@ namespace Infrastructure.Migrations
                     b.Navigation("Region");
                 });
 
-            modelBuilder.Entity("Domains.Messages", b =>
+            modelBuilder.Entity("Domains.Message", b =>
                 {
                     b.HasOne("Domains.Manager", null)
                         .WithMany("Messages")
@@ -241,6 +261,11 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domains.Manager", b =>
                 {
                     b.Navigation("Messages");
+                });
+
+            modelBuilder.Entity("Domains.Organization", b =>
+                {
+                    b.Navigation("Managers");
                 });
 
             modelBuilder.Entity("Domains.Region", b =>

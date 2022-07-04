@@ -2,15 +2,13 @@
 using Business.Interface;
 using Business.ModelDTO;
 using Domains;
-using Infrastructure.Data;
 using Infrastructure.Interface;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
+using System.Linq.Expressions;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Business.Services
@@ -19,16 +17,24 @@ namespace Business.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ICheckServiceAsync _checkServiceAsync;
 
-        public ManagerServiceAsync(IUnitOfWork unitOfWork, IMapper mapper)
+        public ManagerServiceAsync(IUnitOfWork unitOfWork,
+            IMapper mapper,
+            ICheckServiceAsync checkServiceAsync
+            )
         {
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _checkServiceAsync = checkServiceAsync;
         }
-        public async Task<ManagerDTO> CreateAsync(ManagerForCreationDTO managerDto, string currentRegion, string currentRole)
+        public async Task<ManagerDTO> CreateAsync(
+            ManagerForCreationDTO managerDto,
+            string currentRegion,
+            string currentRole)
         {
-            var confirmRegion = await CheckRegionForCreationManager(currentRegion, managerDto.RegionId);
-            var confirmRole = CheckRoleForCreationManager(currentRole, managerDto.Role);
+            var confirmRegion = await _checkServiceAsync.CheckRegionBetweenRegionsId(Guid.Parse(currentRegion), managerDto.RegionId);
+            var confirmRole = _checkServiceAsync.CheckRoleForCreationManager(currentRole, managerDto.Role);
             if (confirmRegion && confirmRole)
             {
                var manager = await _unitOfWork.ManagerRepository
@@ -40,49 +46,113 @@ namespace Business.Services
             return null;
         }
        
-        public async Task<ManagerDTO> GetManagerAsync(Guid Id)
+        public async Task<ManagerDTO> GetManagerAsync(Guid Id,string CurrentManagerId)  
         {
             var manager = await _unitOfWork.ManagerRepository
-                .FindByCondition(m => m.Id == Id, new List<string> { "Organization","Region"});
-            
-            return _mapper.Map<ManagerDTO>(manager);
+                .FindByCondition(m => m.Id == Id);
+            if (manager == null)
+                return null;
+            var currentManager = await _unitOfWork.ManagerRepository
+                .FindByCondition(m => m.Id == Guid.Parse(CurrentManagerId));
+           
+            var checkRegion = await _checkServiceAsync.CheckRegionBetweenRegionsId(currentManager.RegionId, manager.RegionId);
+            var checkOrganization = _checkServiceAsync.CheckOrganizationForModifiedManager(currentManager.OrganizationId, manager.OrganizationId);
+            if(currentManager.Role == RoleManager.Admin)
+            {
+                if (checkRegion)
+                    return _mapper.Map<ManagerDTO>(manager);
+            }
+             if (checkOrganization && checkRegion)
+                return _mapper.Map<ManagerDTO>(manager);
+            else
+                return null;
         }
 
-        public async Task<IReadOnlyList<ManagerDTO>> GetPageListAsync(int page, int pageSize)
+        public async Task<IReadOnlyList<ManagerDTO>> GetPageListAsync(int page, int pageSize,string ManagerId)
         {
-            var managers = _mapper.Map<IReadOnlyList<ManagerDTO>>(
-                await _unitOfWork.ManagerRepository.GetPageListAsync(page,pageSize));
-
-            return managers;
+            var Id = Guid.Parse(ManagerId);
+            var manager = await _unitOfWork.ManagerRepository
+                .FindByCondition(m => m.Id == Id, new List<string> { "Region" });
+            if (manager == null)
+                return null;
+            Expression<Func<Manager, bool>> expression;
+            if (manager.Role == RoleManager.Admin)
+            {
+                expression = m => m.Region.RegionIndex
+                .ToString()
+                .StartsWith(manager.Region.RegionIndex.ToString());
+            }
+            else
+            {
+                expression = m => m.OrganizationId == manager.OrganizationId
+            && m.Region.RegionIndex.ToString()
+            .StartsWith(manager.Region.RegionIndex.ToString());
+            }
+            var managers = await _unitOfWork.ManagerRepository.GetManagersAsync(expression);
+            return _mapper.Map<IReadOnlyList<ManagerDTO>>(managers);
         }
 
-        public async Task DeleteAsync(Guid Id)
+        public async Task DeleteAsync(Guid Id, string currentManagerId)
         {
-            _unitOfWork.ManagerRepository.Delete(Id);
+
+            var manager = await _unitOfWork.ManagerRepository
+                .FindByCondition(m => m.Id == Id);
+            if (manager == null)
+                return;
+            var currentManager = await _unitOfWork.ManagerRepository
+                .FindByCondition(m => m.Id == Guid.Parse(currentManagerId));
+            var checkRegion = await _checkServiceAsync.CheckRegionBetweenRegionsId(currentManager.RegionId, manager.RegionId);
+            var checkOrganization = _checkServiceAsync.CheckOrganizationForModifiedManager(currentManager.OrganizationId, manager.OrganizationId);
+            if (currentManager.Role == RoleManager.Admin)
+            {
+                if (checkRegion)
+                    _unitOfWork.ManagerRepository.Delete(Id);
+            }
+            else if (checkOrganization && checkRegion)
+                _unitOfWork.ManagerRepository.Delete(Id);
+
             await _unitOfWork.SaveChangesAsync();
         }
 
-        public async Task<ManagerDTO> UpdateAsync(ManagerDTO managerDto)
+        public async Task<ManagerDTO> UpdateAsync(ManagerDTO managerDto,string currentManagerId)
         {
             var ExistManager = await _unitOfWork.ManagerRepository
                 .FindByCondition(m => m.Login == managerDto.Login);
-            if(ExistManager is null)
+            if (ExistManager is null)
             {
                 _unitOfWork.ManagerRepository.Update(_mapper.Map<Manager>(managerDto));
-            await _unitOfWork.SaveChangesAsync();
-                return managerDto;
             }
-            else if(ExistManager.Id == managerDto.Id && ExistManager is not null)
+            else if (ExistManager.Id == managerDto.Id && ExistManager is not null)
             {
                 _unitOfWork.ManagerRepository.Update(_mapper.Map<Manager>(managerDto));
-            await _unitOfWork.SaveChangesAsync();
-                return managerDto;
             }
-            return null;
-        }
+            else
+                return null;
+            var currentManager = await _unitOfWork.ManagerRepository
+                .FindByCondition(m => m.Id == Guid.Parse(currentManagerId));
 
+            var checkRegion = await _checkServiceAsync.CheckRegionBetweenRegionsId(currentManager.RegionId, managerDto.RegionId);
+            var checkOrganization = _checkServiceAsync.CheckOrganizationForModifiedManager(currentManager.OrganizationId, managerDto.OrganizationId);
+            var checkRole = _checkServiceAsync.CheckRoleForCreationManager(currentManager.Role.ToString(), managerDto.Role);
+
+            if (currentManager.Role == RoleManager.Admin)
+            {
+                if (checkRegion)
+                {
+                    await _unitOfWork.SaveChangesAsync();
+                    return managerDto;
+                }
+            }
+            if (checkOrganization && checkRegion && checkRole)
+            {
+                await _unitOfWork.SaveChangesAsync();
+                return managerDto;
+            }
+             return null;
+        }
         public async Task<ManagerDTO> LoginExist(string login) =>
              _mapper.Map<ManagerDTO>(await _unitOfWork.ManagerRepository.FindByCondition(m => m.Login == login));
+        
         
         #region LoginMethod
         public async Task<string> LoginAsync(string login, string password)
@@ -98,7 +168,7 @@ namespace Business.Services
                 issuer: AuthOptions.ISSUER,
                 audience: AuthOptions.AUDIENCE,
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(10),
+                expires: DateTime.UtcNow.AddMinutes(30),
                 signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256)
                 );
             return new JwtSecurityTokenHandler().WriteToken(jwt);
@@ -117,34 +187,6 @@ namespace Business.Services
             return claims;
         }
         #endregion
-        
-        #region CheckParametres
-        public async Task<bool> CheckRegionForCreationManager(string currentRegion, Guid regionId)
-        {
-            var CurrentRegion = await _unitOfWork.RegionRepository
-                .FindByCondition(r => r.Id == Guid.Parse(currentRegion));
-
-            var Region = await _unitOfWork.RegionRepository
-                .FindByCondition(r => r.Id == regionId);
-
-            bool confirm = Region.RegionIndex.ToString()
-                .StartsWith(CurrentRegion.RegionIndex.ToString());
-
-            return confirm;
-        }
-        public bool CheckRoleForCreationManager(string currentRole, RoleManager managerRole)
-        {
-            bool confirmRole = false;
-            if(currentRole == RoleManager.Admin.ToString())
-            {
-                confirmRole = managerRole == RoleManager.Admin || managerRole == RoleManager.Organizator;
-            }
-            else if(currentRole == RoleManager.Organizator.ToString())
-            {
-                confirmRole = managerRole == RoleManager.Operator;
-            }
-            return confirmRole;
-        }
-        #endregion
+      
     }
 }

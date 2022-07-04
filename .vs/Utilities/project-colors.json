@@ -35,7 +35,37 @@
       "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
       "DisplayName": "Miscellaneous Files",
       "ColorIndex": -1
+    },
+    "5bfdb08f-5a0e-46d4-aefa-f95f1d038a24": {
+      "ProjectGuid": "5bfdb08f-5a0e-46d4-aefa-f95f1d038a24",
+      "DisplayName": "TelegramApi",
+      "ColorIndex": 6
+    },
+    "20bac156-b0f6-42f1-860c-b2baa5571ce0": {
+      "ProjectGuid": "20bac156-b0f6-42f1-860c-b2baa5571ce0",
+      "DisplayName": "TelegramBot",
+      "ColorIndex": 7
+    },
+    "b1192aac-e5f4-4458-b135-fa8ee9d7b4a1": {
+      "ProjectGuid": "b1192aac-e5f4-4458-b135-fa8ee9d7b4a1",
+      "DisplayName": "TelegramBot.Domains",
+      "ColorIndex": 8
+    },
+    "8e86ccf5-0e68-4476-83da-8e82d97c126d": {
+      "ProjectGuid": "8e86ccf5-0e68-4476-83da-8e82d97c126d",
+      "DisplayName": "TelegramBot.Infrastructure",
+      "ColorIndex": 9
+    },
+    "194e21d4-902d-4613-a49a-9034e2b14a48": {
+      "ProjectGuid": "194e21d4-902d-4613-a49a-9034e2b14a48",
+      "DisplayName": "TelegramBot.Business",
+      "ColorIndex": 10
+    },
+    "75207684-d38c-4913-8553-458b311f717d": {
+      "ProjectGuid": "75207684-d38c-4913-8553-458b311f717d",
+      "DisplayName": "TelegramBot.Infrastructure",
+      "ColorIndex": 11
     }
   },
-  "NextColorIndex": 6
+  "NextColorIndex": 12
 }

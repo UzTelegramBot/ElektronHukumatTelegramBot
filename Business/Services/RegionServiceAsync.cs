@@ -13,11 +13,16 @@ namespace Business.Services
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private readonly ICheckServiceAsync _checkServiceAsync;
 
-        public RegionServiceAsync(IUnitOfWork unitofWork, IMapper mapper)
+        public RegionServiceAsync(IUnitOfWork unitofWork,
+            IMapper mapper,
+            ICheckServiceAsync checkServiceAsync 
+            )
         {
             _unitOfWork = unitofWork;
             _mapper = mapper;
+            _checkServiceAsync = checkServiceAsync;
         }
         public async Task<RegionDTO> CreateAsync(RegionForCreationDTO regionForCreationDTO)
         {
@@ -53,6 +58,26 @@ namespace Business.Services
         {
             _unitOfWork.RegionRepository.Update(_mapper.Map<Region>(regionDTO));
             await _unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task<IReadOnlyList<RegionDTO>> GetRegionByManager(Guid regionId,string regionIdOfManager)
+        {
+            try
+            {
+             var region = await GetByIdAsync(regionId);
+             var regionOfManager = await GetByIdAsync(Guid.Parse(regionIdOfManager));
+             bool checkSimilarIndex = _checkServiceAsync
+                    .CheckRegionBetweenIndex(region.RegionIndex, regionOfManager.RegionIndex);
+
+             if(!checkSimilarIndex)
+                return null;
+             var regions = await _unitOfWork.RegionRepository.GetRegionLayer(region.RegionIndex.ToString());
+             return _mapper.Map<IReadOnlyList<RegionDTO>>(regions);
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

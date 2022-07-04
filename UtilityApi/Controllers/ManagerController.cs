@@ -24,35 +24,46 @@ namespace UtilityApi.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin,Organizator")]
         public async Task<IActionResult> GetPageList([FromQuery] int page, int pageSize)
         {
-            if (page <= 0 || pageSize <= 0) return NotFound();
+            if (page <= 0 || pageSize <= 0)
+                return NotFound();
+            var identity = (ClaimsIdentity)User.Identity;
+            var ManagerId = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            var managers = await _service.GetPageListAsync(page, pageSize);
+            var managers = await _service.GetPageListAsync(page, pageSize,ManagerId);
 
-            if (managers == null) return NotFound();
+            if (managers == null)
+                return NotFound();
 
             return Ok(managers);
         }
 
         [HttpGet("{id}")]
+        [Authorize(Roles = "Admin,Organizator")]
         public async Task<IActionResult> Get(Guid id)
         {
             if (!id.Equals(Guid.Empty))
             {
-                var manager = await _service.GetManagerAsync(id);
+                var identity = (ClaimsIdentity)User.Identity;
+                var CurrentManagerId = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var manager = await _service.GetManagerAsync(id,CurrentManagerId);
                 if (manager != null)
                     return Ok(manager);
             }
-            return NotFound();
+            return BadRequest();
         }
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Organizator")]
         public async Task<IActionResult> Update([FromBody] ManagerDTO managerDTO)
         {
             if (ModelState.IsValid)
             {
-               var manager =  await _service.UpdateAsync(managerDTO);
+                var identity = (ClaimsIdentity)User.Identity;
+                var CurrentManagerId = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                var manager =  await _service.UpdateAsync(managerDTO, CurrentManagerId);
                 if (manager != null)
                     return Ok(manager);
             }
@@ -60,11 +71,15 @@ namespace UtilityApi.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin,Organizator")]
+
         public async Task<IActionResult> Delete(Guid id)
         {
             if (id != Guid.Empty)
             {
-                await _service.DeleteAsync(id);
+                var identity = (ClaimsIdentity)User.Identity;
+                var CurrentManagerId = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                await _service.DeleteAsync(id,CurrentManagerId);
                 return Ok();
             }
             return BadRequest();

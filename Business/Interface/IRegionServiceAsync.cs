@@ -12,5 +12,6 @@ namespace Business.Interface
         Task<RegionDTO> GetByIdAsync(Guid Id);
         Task UpdateAsync(RegionDTO regionDTO);
         Task DeleteAsync(Guid Id);
+        Task<IReadOnlyList<RegionDTO>> GetRegionByManager(Guid regionId, string regionIdByManager);
     }
 }

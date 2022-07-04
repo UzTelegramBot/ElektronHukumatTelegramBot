@@ -3,6 +3,7 @@ using Business.Interface;
 using Business.ModelDTO;
 using Domains;
 using Infrastructure.Interface;
+using Microsoft.AspNetCore.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -19,6 +20,8 @@ namespace Business.Services
             _mapper = mapper;
             _unitOfWork = unitOfWork;
         }
+
+        [Authorize(Roles = "Admin")]
         public async Task<OrganizationDTO> CreateAsync(OrganizationForCreationDTO organizationForCreationDTO)
         {
             var organization = await  _unitOfWork.OrganizationRepostiory
@@ -27,18 +30,21 @@ namespace Business.Services
             return _mapper.Map<OrganizationDTO>(organization);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task DeleteAsync(Guid Id)
         {
             _unitOfWork.OrganizationRepostiory.Delete(Id);
             await _unitOfWork.SaveChangesAsync();
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<OrganizationDTO> GetByIdAsync(Guid Id)
         {
             var organization = await _unitOfWork.OrganizationRepostiory.FindByCondition(o=>o.Id == Id, new List<string> { "Region"});
             return _mapper.Map<OrganizationDTO>(organization);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IReadOnlyList<OrganizationDTO>> GetPageListAsync(int page, int pageSize)
         {
 
@@ -46,6 +52,7 @@ namespace Business.Services
             return _mapper.Map<IReadOnlyList<OrganizationDTO>>(pageList);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task UpdateAsync(OrganizationDTO organizationDTO)
         {
             _unitOfWork.OrganizationRepostiory.Update(_mapper.Map<Organization>(organizationDTO));

@@ -14,9 +14,7 @@ namespace Infrastructure.Data
                 {
                     Id = Guid.Parse("936DA01F-9ABD-4d9d-80C7-02AF85C822A8"),
                     RegionIndex = 17,
-                    UzName = "O‘zbekiston Respublikasi",
-                    RuName = "O‘zbekiston Respublikasi",
-                    EngName = "O‘zbekiston Respublikasi"          
+                    UzName = "O‘zbekiston Respublikasi",       
                 }
                 );
         }

@@ -24,7 +24,7 @@ namespace Business.ModelDTO
         public string Login { get; set; }
         [Required]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        public string Password {    get; set; }
         [Required]
         [DataType(DataType.Password)]
         [Display(Name = "Confirm Password")]

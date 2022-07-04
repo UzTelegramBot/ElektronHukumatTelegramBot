@@ -15,7 +15,6 @@ namespace Infrastructure.StartupService
             services.AddDbContext<ApplicationDbContext>(options => options.UseNpgsql(
                 Configuration.GetConnectionString("Connection")
                 ));
-            services.AddScoped<IManagerRepositoryAsync, ManagerRepositoryAsync>();
             services.AddScoped(typeof(IBaseRepositoryAsync<>), typeof(BaseRepositoryAsync<>));
             services.AddTransient<IUnitOfWork, UnitOfWork>();
         }

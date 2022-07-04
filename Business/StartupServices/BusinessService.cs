@@ -3,7 +3,6 @@ using Business.Interface;
 using Business.ModelDTO;
 using Business.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 
@@ -16,8 +15,12 @@ namespace Business.StartupServices
             services.AddAutoMapper(typeof(MappingInitializer));
 
             services.AddScoped<IManagerServiceAsync, ManagerServiceAsync>();
+            services.AddScoped<IBotTextDataServiceAsync, BotTextDataServiceAsync>();
+            services.AddScoped<IUserServiceAsync,UserServiceAsync>();
             services.AddScoped<IOrganizationServiceAsync, OrganizationServiceAsync>();
             services.AddScoped<IRegionServiceAsync, RegionServiceAsync>();
+            services.AddScoped<ICheckServiceAsync, CheckServiceAsync>();
+
             services.AddAuthorization();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>

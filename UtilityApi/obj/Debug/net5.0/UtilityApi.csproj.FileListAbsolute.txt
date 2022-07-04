@@ -53,7 +53,7 @@ C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\System.IdentityModel
 C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
 C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Business.dll
 C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Business.pdb
-C:\Users\User\Desktop\Utilities\UtilityApi\obj\Debug\net5.0\UtilityApi.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\EPPlus.dll
 C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Microsoft.IO.RecyclableMemoryStream.dll
 C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Telegram.Bot.dll

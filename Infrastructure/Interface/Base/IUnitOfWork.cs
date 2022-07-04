@@ -11,6 +11,9 @@ namespace Infrastructure.Interface
       IManagerRepositoryAsync ManagerRepository { get; }
       IRegionRepositoryAsync RegionRepository { get; }
       IOrganizationRepostioryAsync OrganizationRepostiory { get; }
+      IButtonRepositoryAsync ButtonRepository { get; }
+      IUserRepositoryAsync UserRepository { get; }
+      IMessageRepositoryAsync MessageRepository { get; }
       Task SaveChangesAsync();
     }
 }
