@@ -8,7 +8,7 @@ namespace Infrastructure.Interface
     public interface IRegionRepositoryAsync : IBaseRepositoryAsync<Region>
     {
         Task<IReadOnlyList<Region>> GetRegionLayer(string regionIndex);
-        int GetCount(Guid RegionId);
+        Task<int> GetCount(Guid RegionId);
         Task<IReadOnlyList<Region>> GetListById(Guid RegionId, int page, int pageSize);
     }
 }

@@ -15,11 +15,10 @@ namespace Business.StartupServices
             services.AddAutoMapper(typeof(MappingInitializer));
 
             services.AddScoped<IManagerServiceAsync, ManagerServiceAsync>();
-            services.AddScoped<IBotTextDataServiceAsync, BotTextDataServiceAsync>();
-            services.AddScoped<IUserServiceAsync,UserServiceAsync>();
             services.AddScoped<IOrganizationServiceAsync, OrganizationServiceAsync>();
             services.AddScoped<IRegionServiceAsync, RegionServiceAsync>();
             services.AddScoped<ICheckServiceAsync, CheckServiceAsync>();
+            services.AddScoped<IMessageServiceAsync, MessageServiceAsync>();
 
             services.AddAuthorization();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

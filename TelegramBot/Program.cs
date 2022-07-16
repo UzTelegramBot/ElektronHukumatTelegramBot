@@ -13,7 +13,6 @@ Console.Title = me.Username ?? "My awesome Bot";
 
 using var cts = new CancellationTokenSource();
 
-// StartReceiving does not block the caller thread. Receiving is done on the ThreadPool.
 var receiverOptions = new ReceiverOptions()
 {
     AllowedUpdates = Array.Empty<UpdateType>(),
@@ -28,6 +27,5 @@ bot.StartReceiving(updateHandler: UpdateHandlers.HandleUpdateAsync,
 Console.WriteLine($"Start listening for @{me.Username}");
 Console.ReadLine();
 
-// Send cancellation request to stop bot
 cts.Cancel();
 

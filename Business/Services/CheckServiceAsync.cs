@@ -27,7 +27,7 @@ namespace Business.Services
 
             return confirm;
         }
-        public bool CheckOrganizationForModifiedManager(Guid? currentManagerOrganizationId,
+        public bool CheckOrganizationBetweenOrganizationId(Guid? currentManagerOrganizationId,
             Guid? managerOrganizationId)
         {
             return currentManagerOrganizationId == managerOrganizationId;

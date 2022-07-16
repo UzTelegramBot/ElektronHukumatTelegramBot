@@ -7,7 +7,7 @@ namespace Business.Interface
     public interface ICheckServiceAsync
     {
         Task<bool> CheckRegionBetweenRegionsId(Guid currentRegionId, Guid regionId);
-        bool CheckOrganizationForModifiedManager(Guid? currentManagerOrganizationId, Guid? managerOrganizationId);
+        bool CheckOrganizationBetweenOrganizationId(Guid? currentManagerOrganizationId, Guid? managerOrganizationId);
         bool CheckRoleForCreationManager(string currentRole, RoleManager managerRole);
         public bool CheckRegionBetweenIndex(long regionIndex, long mainRegionIndex);
     }

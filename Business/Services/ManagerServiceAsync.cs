@@ -33,9 +33,15 @@ namespace Business.Services
             string currentRegion,
             string currentRole)
         {
+            var organization = await _unitOfWork.OrganizationRepostiory
+                .FindByCondition(o => o.Id == managerDto.OrganizationId);
+            if (organization == null)
+                return null;
             var confirmRegion = await _checkServiceAsync.CheckRegionBetweenRegionsId(Guid.Parse(currentRegion), managerDto.RegionId);
+            var confirmOrganizationRegion = await _checkServiceAsync
+                .CheckRegionBetweenRegionsId(organization.RegionId, managerDto.RegionId);
             var confirmRole = _checkServiceAsync.CheckRoleForCreationManager(currentRole, managerDto.Role);
-            if (confirmRegion && confirmRole)
+            if (confirmRegion && confirmRole && confirmOrganizationRegion)
             {
                var manager = await _unitOfWork.ManagerRepository
                       .CreateAsync(_mapper.Map<Manager>(managerDto));
@@ -49,14 +55,14 @@ namespace Business.Services
         public async Task<ManagerDTO> GetManagerAsync(Guid Id,string CurrentManagerId)  
         {
             var manager = await _unitOfWork.ManagerRepository
-                .FindByCondition(m => m.Id == Id);
+                .FindByCondition(m => m.Id == Id, new List<string> { "Organization, Region"});
             if (manager == null)
                 return null;
             var currentManager = await _unitOfWork.ManagerRepository
                 .FindByCondition(m => m.Id == Guid.Parse(CurrentManagerId));
            
             var checkRegion = await _checkServiceAsync.CheckRegionBetweenRegionsId(currentManager.RegionId, manager.RegionId);
-            var checkOrganization = _checkServiceAsync.CheckOrganizationForModifiedManager(currentManager.OrganizationId, manager.OrganizationId);
+            var checkOrganization = _checkServiceAsync.CheckOrganizationBetweenOrganizationId(currentManager.OrganizationId, manager.OrganizationId);
             if(currentManager.Role == RoleManager.Admin)
             {
                 if (checkRegion)
@@ -101,8 +107,10 @@ namespace Business.Services
                 return;
             var currentManager = await _unitOfWork.ManagerRepository
                 .FindByCondition(m => m.Id == Guid.Parse(currentManagerId));
-            var checkRegion = await _checkServiceAsync.CheckRegionBetweenRegionsId(currentManager.RegionId, manager.RegionId);
-            var checkOrganization = _checkServiceAsync.CheckOrganizationForModifiedManager(currentManager.OrganizationId, manager.OrganizationId);
+            var checkRegion = await _checkServiceAsync
+                .CheckRegionBetweenRegionsId(currentManager.RegionId, manager.RegionId);
+            var checkOrganization = _checkServiceAsync
+                .CheckOrganizationBetweenOrganizationId(currentManager.OrganizationId, manager.OrganizationId);
             if (currentManager.Role == RoleManager.Admin)
             {
                 if (checkRegion)
@@ -132,7 +140,7 @@ namespace Business.Services
                 .FindByCondition(m => m.Id == Guid.Parse(currentManagerId));
 
             var checkRegion = await _checkServiceAsync.CheckRegionBetweenRegionsId(currentManager.RegionId, managerDto.RegionId);
-            var checkOrganization = _checkServiceAsync.CheckOrganizationForModifiedManager(currentManager.OrganizationId, managerDto.OrganizationId);
+            var checkOrganization = _checkServiceAsync.CheckOrganizationBetweenOrganizationId(currentManager.OrganizationId, managerDto.OrganizationId);
             var checkRole = _checkServiceAsync.CheckRoleForCreationManager(currentManager.Role.ToString(), managerDto.Role);
 
             if (currentManager.Role == RoleManager.Admin)
@@ -168,7 +176,7 @@ namespace Business.Services
                 issuer: AuthOptions.ISSUER,
                 audience: AuthOptions.AUDIENCE,
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(30),
+                expires: DateTime.UtcNow.AddDays(15),
                 signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256)
                 );
             return new JwtSecurityTokenHandler().WriteToken(jwt);
@@ -182,7 +190,8 @@ namespace Business.Services
                 new Claim(ClaimTypes.Name, manager.LastName),
                 new Claim(ClaimTypes.Role, manager.Role.ToString()),
                 new Claim(ClaimTypes.Email, manager.Email),
-                new Claim("RegionId",manager.RegionId.ToString())
+                new Claim("RegionId",manager.RegionId.ToString()),
+                new Claim("OrganizationId", manager.OrganizationId.ToString())
             };
             return claims;
         }

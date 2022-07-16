@@ -1,6 +1,5 @@
 C:\Users\User\Desktop\Utilities\TelegramBot.Business\bin\Debug\net5.0\TelegramBot.Business.deps.json
 C:\Users\User\Desktop\Utilities\TelegramBot.Business\bin\Debug\net5.0\TelegramBot.Business.dll
-C:\Users\User\Desktop\Utilities\TelegramBot.Business\bin\Debug\net5.0\ref\TelegramBot.Business.dll
 C:\Users\User\Desktop\Utilities\TelegramBot.Business\bin\Debug\net5.0\TelegramBot.Business.pdb
 C:\Users\User\Desktop\Utilities\TelegramBot.Business\obj\Debug\net5.0\TelegramBot.Business.csproj.AssemblyReference.cache
 C:\Users\User\Desktop\Utilities\TelegramBot.Business\obj\Debug\net5.0\TelegramBot.Business.GeneratedMSBuildEditorConfig.editorconfig
@@ -15,3 +14,4 @@ C:\Users\User\Desktop\Utilities\TelegramBot.Business\bin\Debug\net5.0\TelegramBo
 C:\Users\User\Desktop\Utilities\TelegramBot.Business\obj\Debug\net5.0\TelegramBot.Business.csproj.CopyComplete
 C:\Users\User\Desktop\Utilities\TelegramBot.Business\bin\Debug\net5.0\TelegramBot.Infrastructure.dll
 C:\Users\User\Desktop\Utilities\TelegramBot.Business\bin\Debug\net5.0\TelegramBot.Infrastructure.pdb
+C:\Users\User\Desktop\Utilities\TelegramBot.Business\obj\Debug\net5.0\refint\TelegramBot.Business.dll

@@ -2,7 +2,6 @@ C:\Users\User\Desktop\Utilities\TelegramBot.Infrastructure\bin\Debug\net5.0\Tele
 C:\Users\User\Desktop\Utilities\TelegramBot.Infrastructure\bin\Debug\net5.0\TelegramBot.Infrastructure.runtimeconfig.json
 C:\Users\User\Desktop\Utilities\TelegramBot.Infrastructure\bin\Debug\net5.0\TelegramBot.Infrastructure.runtimeconfig.dev.json
 C:\Users\User\Desktop\Utilities\TelegramBot.Infrastructure\bin\Debug\net5.0\TelegramBot.Infrastructure.dll
-C:\Users\User\Desktop\Utilities\TelegramBot.Infrastructure\bin\Debug\net5.0\ref\TelegramBot.Infrastructure.dll
 C:\Users\User\Desktop\Utilities\TelegramBot.Infrastructure\bin\Debug\net5.0\TelegramBot.Infrastructure.pdb
 C:\Users\User\Desktop\Utilities\TelegramBot.Infrastructure\bin\Debug\net5.0\TelegramBot.Domains.dll
 C:\Users\User\Desktop\Utilities\TelegramBot.Infrastructure\bin\Debug\net5.0\TelegramBot.Domains.pdb
@@ -16,3 +15,4 @@ C:\Users\User\Desktop\Utilities\TelegramBot.Infrastructure\obj\Debug\net5.0\Tele
 C:\Users\User\Desktop\Utilities\TelegramBot.Infrastructure\obj\Debug\net5.0\ref\TelegramBot.Infrastructure.dll
 C:\Users\User\Desktop\Utilities\TelegramBot.Infrastructure\obj\Debug\net5.0\TelegramBot.Infrastructure.pdb
 C:\Users\User\Desktop\Utilities\TelegramBot.Infrastructure\obj\Debug\net5.0\TelegramBot.Infrastructure.genruntimeconfig.cache
+C:\Users\User\Desktop\Utilities\TelegramBot.Infrastructure\obj\Debug\net5.0\refint\TelegramBot.Infrastructure.dll

@@ -22,7 +22,7 @@ namespace Infrastructure.Repository
         public async Task<IReadOnlyList<Manager>> GetManagersAsync(Expression<Func<Manager, bool>> expression)
         {
             var managers = _managers.AsNoTracking();
-            managers = managers.Include("Region");
+            managers = managers.Include("Region").Include("Organization");
             return await managers.Where(expression).ToListAsync();
         }
 

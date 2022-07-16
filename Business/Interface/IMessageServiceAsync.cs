@@ -7,7 +7,7 @@ namespace Business.Interface
 {
     public interface IMessageServiceAsync
     {
-        Task<MessageDTO> CreateAsync(MessageForCreationDTO messageForCreationDTO);
+        Task<MessageDTO> CreateAsync(MessageForCreationDTO messageForCreationDTO, string language);
         Task<MessageDTO> GetByIdAsync(Guid Id);
     }
 }

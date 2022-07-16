@@ -1,0 +1,12 @@
+C:\Users\User\Desktop\Utilities\TelegramBot.Domains\bin\Release\net5.0\TelegramBot.Domains.deps.json
+C:\Users\User\Desktop\Utilities\TelegramBot.Domains\bin\Release\net5.0\TelegramBot.Domains.dll
+C:\Users\User\Desktop\Utilities\TelegramBot.Domains\bin\Release\net5.0\ref\TelegramBot.Domains.dll
+C:\Users\User\Desktop\Utilities\TelegramBot.Domains\bin\Release\net5.0\TelegramBot.Domains.pdb
+C:\Users\User\Desktop\Utilities\TelegramBot.Domains\obj\Release\net5.0\TelegramBot.Domains.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\Utilities\TelegramBot.Domains\obj\Release\net5.0\TelegramBot.Domains.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\Utilities\TelegramBot.Domains\obj\Release\net5.0\TelegramBot.Domains.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\Utilities\TelegramBot.Domains\obj\Release\net5.0\TelegramBot.Domains.AssemblyInfo.cs
+C:\Users\User\Desktop\Utilities\TelegramBot.Domains\obj\Release\net5.0\TelegramBot.Domains.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Utilities\TelegramBot.Domains\obj\Release\net5.0\TelegramBot.Domains.dll
+C:\Users\User\Desktop\Utilities\TelegramBot.Domains\obj\Release\net5.0\ref\TelegramBot.Domains.dll
+C:\Users\User\Desktop\Utilities\TelegramBot.Domains\obj\Release\net5.0\TelegramBot.Domains.pdb

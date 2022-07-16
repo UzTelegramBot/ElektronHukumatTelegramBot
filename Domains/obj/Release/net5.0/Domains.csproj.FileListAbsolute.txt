@@ -1,0 +1,12 @@
+C:\Users\User\Desktop\Utilities\Domains\bin\Release\net5.0\Domains.deps.json
+C:\Users\User\Desktop\Utilities\Domains\bin\Release\net5.0\Domains.dll
+C:\Users\User\Desktop\Utilities\Domains\bin\Release\net5.0\ref\Domains.dll
+C:\Users\User\Desktop\Utilities\Domains\bin\Release\net5.0\Domains.pdb
+C:\Users\User\Desktop\Utilities\Domains\obj\Release\net5.0\Domains.csproj.AssemblyReference.cache
+C:\Users\User\Desktop\Utilities\Domains\obj\Release\net5.0\Domains.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\Utilities\Domains\obj\Release\net5.0\Domains.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\Utilities\Domains\obj\Release\net5.0\Domains.AssemblyInfo.cs
+C:\Users\User\Desktop\Utilities\Domains\obj\Release\net5.0\Domains.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Utilities\Domains\obj\Release\net5.0\Domains.dll
+C:\Users\User\Desktop\Utilities\Domains\obj\Release\net5.0\ref\Domains.dll
+C:\Users\User\Desktop\Utilities\Domains\obj\Release\net5.0\Domains.pdb

@@ -3,7 +3,6 @@ C:\Users\User\Desktop\Utilities\TelegramBot\bin\Debug\net5.0\TelegramBot.deps.js
 C:\Users\User\Desktop\Utilities\TelegramBot\bin\Debug\net5.0\TelegramBot.runtimeconfig.json
 C:\Users\User\Desktop\Utilities\TelegramBot\bin\Debug\net5.0\TelegramBot.runtimeconfig.dev.json
 C:\Users\User\Desktop\Utilities\TelegramBot\bin\Debug\net5.0\TelegramBot.dll
-C:\Users\User\Desktop\Utilities\TelegramBot\bin\Debug\net5.0\ref\TelegramBot.dll
 C:\Users\User\Desktop\Utilities\TelegramBot\bin\Debug\net5.0\TelegramBot.pdb
 C:\Users\User\Desktop\Utilities\TelegramBot\obj\Debug\net5.0\TelegramBot.csproj.AssemblyReference.cache
 C:\Users\User\Desktop\Utilities\TelegramBot\obj\Debug\net5.0\TelegramBot.GeneratedMSBuildEditorConfig.editorconfig
@@ -40,3 +39,4 @@ C:\Users\User\Desktop\Utilities\TelegramBot\bin\Debug\net5.0\Humanizer.dll
 C:\Users\User\Desktop\Utilities\TelegramBot\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\User\Desktop\Utilities\TelegramBot\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\User\Desktop\Utilities\TelegramBot\bin\Debug\net5.0\Telegram.Bot.dll
+C:\Users\User\Desktop\Utilities\TelegramBot\obj\Debug\net5.0\refint\TelegramBot.dll

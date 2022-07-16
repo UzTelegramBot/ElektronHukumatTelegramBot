@@ -2,7 +2,7 @@
 
 namespace Domains
 {
-    public class ABase : BaseEntity
+    public class ABase : Base
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

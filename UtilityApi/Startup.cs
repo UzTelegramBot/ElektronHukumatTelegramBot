@@ -9,6 +9,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using Telegram.Bot;
+using UtilityApi.Logs;
 
 namespace UtilityApi
 {
@@ -65,8 +66,7 @@ namespace UtilityApi
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "UtilityApi v1"));
             }
-
-            
+            app.ConfigureExceptionHandler();
 
             app.UseRouting();
 

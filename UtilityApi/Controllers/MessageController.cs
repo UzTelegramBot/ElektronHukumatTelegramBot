@@ -25,7 +25,7 @@ namespace UtilityApi.Controllers
         }
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> SendMessage([FromBody] MessageForCreationDTO messageForCreationDTO)
+        public async Task<IActionResult> SendMessage([FromBody] MessageForCreationDTO messageForCreationDTO,[FromQuery] string language)
         {
             if (ModelState.IsValid)
             {
@@ -35,7 +35,10 @@ namespace UtilityApi.Controllers
                     CheckRegionBetweenRegionsId(CurrentRegionId, messageForCreationDTO.RegionId);
                 if (checkRegion)
                 {
-                    var message = await _service.CreateAsync(messageForCreationDTO);
+                    messageForCreationDTO.CreatedDate = DateTime.Now;
+                    messageForCreationDTO.ManagerId = Guid
+                        .Parse(identity.FindFirst(ClaimTypes.NameIdentifier).Value);
+                    var message = await _service.CreateAsync(messageForCreationDTO, language.ToLower());
                     return Ok(message);
                 }
             }

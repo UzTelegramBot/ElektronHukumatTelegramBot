@@ -39,5 +39,7 @@ namespace Business.ModelDTO
         public Guid? OrganizationId { get; set; }
         [Required]
         public Guid RegionId { get; set; }
+        public Guid Creaetedby { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

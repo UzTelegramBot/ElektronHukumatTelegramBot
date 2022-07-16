@@ -48,11 +48,23 @@ namespace Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<Guid>("Creaetedby")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("text");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("LastModifiedby")
+                        .HasColumnType("uuid");
 
                     b.Property<string>("LastName")
                         .HasColumnType("text");
@@ -86,9 +98,13 @@ namespace Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("68008369-419d-4d53-988e-06ebf9454de3"),
+                            Id = new Guid("f14c5b3a-59ae-4bad-a62e-cde394855cec"),
+                            Creaetedby = new Guid("00000000-0000-0000-0000-000000000000"),
+                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Email = "abdumurodovnodirxon@gmail.com",
                             FirstName = "Nodirxon",
+                            LastModifiedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastModifiedby = new Guid("00000000-0000-0000-0000-000000000000"),
                             LastName = "Abdumurotov",
                             Login = "Nodirkhan",
                             Password = "12345",
@@ -107,19 +123,13 @@ namespace Infrastructure.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("text");
 
-                    b.Property<Guid>("Creaetedby")
-                        .HasColumnType("uuid");
-
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("LastModifiedDate")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<Guid>("LastModifiedby")
+                    b.Property<Guid>("ManagerId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("ManagerId")
+                    b.Property<Guid>("RegionId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Title")
@@ -128,6 +138,8 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ManagerId");
+
+                    b.HasIndex("RegionId");
 
                     b.ToTable("Messages");
                 });
@@ -141,11 +153,26 @@ namespace Infrastructure.Migrations
                     b.Property<string>("ContactNumber")
                         .HasColumnType("text");
 
+                    b.Property<Guid>("Creaetedby")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<DateTime>("LastModifiedDate")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<Guid>("LastModifiedby")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("MessageTitle")
                         .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
+
+                    b.Property<Guid>("ParentId")
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("RegionId")
                         .HasColumnType("uuid");
@@ -231,9 +258,21 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domains.Message", b =>
                 {
-                    b.HasOne("Domains.Manager", null)
+                    b.HasOne("Domains.Manager", "Manager")
                         .WithMany("Messages")
-                        .HasForeignKey("ManagerId");
+                        .HasForeignKey("ManagerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domains.Region", "Region")
+                        .WithMany()
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Manager");
+
+                    b.Navigation("Region");
                 });
 
             modelBuilder.Entity("Domains.Organization", b =>

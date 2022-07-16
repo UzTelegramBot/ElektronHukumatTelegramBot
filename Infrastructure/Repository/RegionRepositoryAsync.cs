@@ -36,16 +36,23 @@ namespace Infrastructure.Repository
 
         public async Task<IReadOnlyList<Region>> GetListById(Guid RegionId, int page, int pageSize)
         {
+            var region = await FindByCondition(r => r.Id == RegionId);
+
             IReadOnlyList<Region> regions = await _regions.AsNoTracking()
-                .Where(r => r.Id == RegionId)
+                .Where(r => r.RegionIndex.ToString()
+                .StartsWith(region.RegionIndex.ToString()))
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize).ToListAsync();
             return regions;
         }
-        public int GetCount(Guid RegionId)
+        public async Task<int> GetCount(Guid RegionId)
         {
+            var region = await FindByCondition(r => r.Id == RegionId);
+
             return  _regions.AsNoTracking()
-                .Where(r => r.Id == RegionId).ToList().Count;
+                .Where(r => r.RegionIndex.ToString()
+                .StartsWith(region.RegionIndex.ToString()))
+                .ToList().Count;
         }
     }
 }

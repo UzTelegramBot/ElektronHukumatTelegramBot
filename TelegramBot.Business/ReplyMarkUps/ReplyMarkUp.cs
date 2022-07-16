@@ -58,14 +58,28 @@ namespace TelegramBot.Business.ReplyMarkUps
         public static IReplyMarkup SendKeyBoardButton(List<string> texts)
         {
             var rows = new List<KeyboardButton[]>();
-            foreach(var text in texts)
+            var cols = new List<KeyboardButton>();
+            foreach (var text in texts)
             {
-                rows.Add(new KeyboardButton[]
+                if (cols.Count == 2)
                 {
-                    new KeyboardButton(text)
-                });
+                    rows.Add(cols.ToArray());
+                    cols.Clear();
+                    cols.Add(text);
+                }
+                else
+                {
+                    cols.Add(new KeyboardButton(text));
+                }
             }
-            return new ReplyKeyboardMarkup(rows);
+            if (cols.Count > 0)
+            {
+                rows.Add(cols.ToArray());
+            }
+            return new ReplyKeyboardMarkup(rows)
+            {
+                ResizeKeyboard = true
+            };
         }
     }
 }

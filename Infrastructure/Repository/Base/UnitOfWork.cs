@@ -8,27 +8,25 @@ namespace Infrastructure.Repository
     public class UnitOfWork : IUnitOfWork
     {
         private readonly ApplicationDbContext _context;
-        private ManagerRepositoryAsync _managerRepositoryAsync;
-        private RegionRepositoryAsync _regionRepositoryAsync;
-        private OrganizationRepositoryAsync _organizationRepositoryAsync;
-        private UserRepositoryAsync _userRepositoryAsync;
-        private BotTextDataAsync _buttoonRepositoryAsync;
-        private MessageRepositoryAsync _messageRepositoryAsync;
+        private ManagerRepositoryAsync managerRepositoryAsync;
+        private RegionRepositoryAsync regionRepositoryAsync;
+        private OrganizationRepositoryAsync organizationRepositoryAsync;
+        private UserRepositoryAsync userRepositoryAsync;
+        private MessageRepositoryAsync messageRepositoryAsync;
         public UnitOfWork(ApplicationDbContext context)
         {
             _context = context;
         }
-        public IManagerRepositoryAsync ManagerRepository => _managerRepositoryAsync ?? new ManagerRepositoryAsync(_context);
+        public IManagerRepositoryAsync ManagerRepository => managerRepositoryAsync ?? new ManagerRepositoryAsync(_context);
 
-        public IRegionRepositoryAsync RegionRepository => _regionRepositoryAsync ?? new RegionRepositoryAsync(_context);
+        public IRegionRepositoryAsync RegionRepository => regionRepositoryAsync ?? new RegionRepositoryAsync(_context);
 
-        public IOrganizationRepostioryAsync OrganizationRepostiory => _organizationRepositoryAsync ?? new OrganizationRepositoryAsync(_context);
+        public IOrganizationRepostioryAsync OrganizationRepostiory => organizationRepositoryAsync ?? new OrganizationRepositoryAsync(_context);
 
-        public IButtonRepositoryAsync ButtonRepository => _buttoonRepositoryAsync ?? new BotTextDataAsync(_context);
 
-        public IUserRepositoryAsync UserRepository => _userRepositoryAsync ?? new UserRepositoryAsync(_context);
+        public IUserRepositoryAsync UserRepository => userRepositoryAsync ?? new UserRepositoryAsync(_context);
 
-        public IMessageRepositoryAsync MessageRepository => _messageRepositoryAsync ?? new MessageRepositoryAsync(_context);
+        public IMessageRepositoryAsync MessageRepository => messageRepositoryAsync ?? new MessageRepositoryAsync(_context);
 
         public async Task SaveChangesAsync()
         {

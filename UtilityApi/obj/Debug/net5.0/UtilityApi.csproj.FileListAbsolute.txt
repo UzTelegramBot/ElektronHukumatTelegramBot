@@ -5,7 +5,6 @@ C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\UtilityApi.deps.json
 C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\UtilityApi.runtimeconfig.json
 C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\UtilityApi.runtimeconfig.dev.json
 C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\UtilityApi.dll
-C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\ref\UtilityApi.dll
 C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\UtilityApi.pdb
 C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.dll
 C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -57,3 +56,15 @@ C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\EPPlus.dll
 C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Microsoft.IO.RecyclableMemoryStream.dll
 C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Telegram.Bot.dll
+C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Serilog.dll
+C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Serilog.AspNetCore.dll
+C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Serilog.Extensions.Hosting.dll
+C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Serilog.Extensions.Logging.dll
+C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Serilog.Formatting.Compact.dll
+C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Serilog.Settings.Configuration.dll
+C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Serilog.Sinks.Console.dll
+C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Serilog.Sinks.Debug.dll
+C:\Users\User\Desktop\Utilities\UtilityApi\bin\Debug\net5.0\Serilog.Sinks.File.dll
+C:\Users\User\Desktop\Utilities\UtilityApi\obj\Debug\net5.0\UtilityApi.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\User\Desktop\Utilities\UtilityApi\obj\Debug\net5.0\refint\UtilityApi.dll

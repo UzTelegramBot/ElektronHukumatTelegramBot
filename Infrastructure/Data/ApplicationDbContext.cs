@@ -14,10 +14,10 @@ namespace Infrastructure.Data
         public DbSet<Message> Messages { get; set; }
         public DbSet<BotTextData> BotTextDatas { get; set; }
         public DbSet<User> Users { get; set; }
-        protected override void OnModelCreating(ModelBuilder buider)
+        protected override void OnModelCreating(ModelBuilder builder)
         {
-            buider.ApplyConfiguration(new DefaultRegion());
-            buider.ApplyConfiguration(new DefaultOperatorData());
+            builder.ApplyConfiguration(new DefaultRegion());
+            builder.ApplyConfiguration(new DefaultOperatorData());
         }
     }
 }

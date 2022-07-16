@@ -24,8 +24,17 @@ namespace Business.Services
             _mapper = mapper;
             _checkServiceAsync = checkServiceAsync;
         }
-        public async Task<RegionDTO> CreateAsync(RegionForCreationDTO regionForCreationDTO)
+        public async Task<RegionDTO> CreateAsync(RegionForCreationDTO regionForCreationDTO, Guid currentRegionId)
         {
+
+            var regionOfManager = await _unitOfWork
+                .RegionRepository
+                .FindByCondition(r=>r.Id == currentRegionId);
+            bool checkIndex = _checkServiceAsync
+                .CheckRegionBetweenIndex(regionForCreationDTO.RegionIndex, regionOfManager.RegionIndex);
+            if (!checkIndex)
+                return null;
+            
             var IsExist = await _unitOfWork.RegionRepository.FindByCondition(r => r.RegionIndex == regionForCreationDTO.RegionIndex);
             if(IsExist == null)
             {
@@ -36,9 +45,13 @@ namespace Business.Services
             return null;
         }
 
-        public async Task DeleteAsync(Guid Id)
+        public async Task DeleteAsync(Guid Id, Guid currentRegionId)
         {
-             _unitOfWork.RegionRepository.Delete(Id);
+            bool confirm = await _checkServiceAsync
+                      .CheckRegionBetweenRegionsId(currentRegionId, Id);
+            if (!confirm)
+                return;
+            _unitOfWork.RegionRepository.Delete(Id);
             await _unitOfWork.SaveChangesAsync();
         }
 
@@ -54,8 +67,13 @@ namespace Business.Services
             return _mapper.Map<IReadOnlyList<RegionDTO>>(pageList);
         }
 
-        public async Task UpdateAsync(RegionDTO regionDTO)
+        public async Task UpdateAsync(RegionDTO regionDTO, Guid currentRegionId)
         {
+            bool confirm = await _checkServiceAsync
+                    .CheckRegionBetweenRegionsId(currentRegionId, regionDTO.Id);
+            if (!confirm)
+                return ;
+
             _unitOfWork.RegionRepository.Update(_mapper.Map<Region>(regionDTO));
             await _unitOfWork.SaveChangesAsync();
         }

@@ -13,13 +13,10 @@ namespace UtilityApi.Controllers
     [ApiController]
     public class RegionController : ControllerBase
     {
-        private readonly ICheckServiceAsync _checkService;
         private readonly IRegionServiceAsync _service;
         
-        public RegionController(IRegionServiceAsync service, 
-            ICheckServiceAsync checkServiceAsync)
+        public RegionController(IRegionServiceAsync service)
         {
-            _checkService = checkServiceAsync;
             _service = service;
         }
         [HttpGet]
@@ -55,19 +52,13 @@ namespace UtilityApi.Controllers
                 ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
                 Guid regionIdOfManager = Guid.Parse(identity.FindFirst("RegionId").Value);
 
-                var regionOfManager =await _service.GetByIdAsync(regionIdOfManager);
-                bool checkIndex = _checkService
-                    .CheckRegionBetweenIndex(regionForCreationDTO.RegionIndex,regionOfManager.RegionIndex);
-                if (!checkIndex)
-                    return BadRequest();
-
-                var region = await _service.CreateAsync(regionForCreationDTO);
+                var region = await _service.CreateAsync(regionForCreationDTO, regionIdOfManager);
                 if (region != null)
                     return Ok(region);
             }
             return NotFound();
         }
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Put([FromBody] RegionDTO regionDTO)
         {
@@ -75,17 +66,13 @@ namespace UtilityApi.Controllers
             {
                  ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
                  Guid regionIdOfManager = Guid.Parse(identity.FindFirst("RegionId").Value);
-                 bool confirm = await _checkService
-                    .CheckRegionBetweenRegionsId(regionIdOfManager, regionDTO.Id);
-                if (!confirm)
-                    return BadRequest();
-
-                await _service.UpdateAsync(regionDTO);
-                return Ok();
+                 
+                await _service.UpdateAsync(regionDTO,regionIdOfManager);
+                return Ok(regionDTO);
             }
             return NotFound();
         }
-        [HttpDelete("{id}")]
+        [HttpDelete]
         [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Delete(Guid id)
         {
@@ -93,25 +80,21 @@ namespace UtilityApi.Controllers
             {
                 ClaimsIdentity identity = (ClaimsIdentity)User.Identity;
                 Guid regionIdOfManager = Guid.Parse(identity.FindFirst("RegionId").Value);
-                bool confirm = await _checkService
-                      .CheckRegionBetweenRegionsId(regionIdOfManager, id);
-                if (!confirm)
-                    return BadRequest();
-                await _service.DeleteAsync(id);
+                await _service.DeleteAsync(id, regionIdOfManager);
                 return Ok();
             }
             return BadRequest();
         }
         [HttpGet("RegionsByManager")]
         [Authorize]
-        public async Task<IActionResult> GetRegionByManager([FromQuery] Guid region)
+        public async Task<IActionResult> GetRegionByManager([FromQuery] Guid regionId)
         {
-              if(region != Guid.Empty)
+              if(regionId != Guid.Empty)
               {
-
+                
                 var identity = (ClaimsIdentity)User.Identity;
                 var regionIdOfManager = identity.FindFirst("RegionId").Value;
-                var regions = await _service.GetRegionByManager(region,regionIdOfManager);
+                var regions = await _service.GetRegionByManager(regionId,regionIdOfManager);
                 if(regions != null)
                    return Ok(regions);
               }

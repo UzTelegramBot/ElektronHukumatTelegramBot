@@ -7,11 +7,11 @@ namespace Business.Interface
 {
     public interface IRegionServiceAsync 
     {
-        Task<RegionDTO> CreateAsync(RegionForCreationDTO regionForCreationDTO);
+        Task<RegionDTO> CreateAsync(RegionForCreationDTO regionForCreationDTO, Guid currentRegion);
         Task<IReadOnlyList<RegionDTO>> GetPageListAsync(int page, int pageSize);
         Task<RegionDTO> GetByIdAsync(Guid Id);
-        Task UpdateAsync(RegionDTO regionDTO);
-        Task DeleteAsync(Guid Id);
+        Task UpdateAsync(RegionDTO regionDTO, Guid currentRegionId);
+        Task DeleteAsync(Guid Id, Guid currentRegionId);
         Task<IReadOnlyList<RegionDTO>> GetRegionByManager(Guid regionId, string regionIdByManager);
     }
 }

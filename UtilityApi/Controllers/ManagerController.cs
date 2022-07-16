@@ -4,6 +4,7 @@ using Business.ModelDTO;
 using Infrastructure.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Serilog;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -55,7 +56,7 @@ namespace UtilityApi.Controllers
             return BadRequest();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut]
         [Authorize(Roles = "Admin,Organizator")]
         public async Task<IActionResult> Update([FromBody] ManagerDTO managerDTO)
         {
@@ -63,6 +64,9 @@ namespace UtilityApi.Controllers
             {
                 var identity = (ClaimsIdentity)User.Identity;
                 var CurrentManagerId = identity.FindFirst(ClaimTypes.NameIdentifier).Value;
+                managerDTO.LastModifiedby = Guid
+                        .Parse(identity.FindFirst(ClaimTypes.NameIdentifier).Value);
+                managerDTO.LastModifiedDate = DateTime.Now;
                 var manager =  await _service.UpdateAsync(managerDTO, CurrentManagerId);
                 if (manager != null)
                     return Ok(manager);
@@ -98,7 +102,7 @@ namespace UtilityApi.Controllers
             }
             return NotFound();
         }
-      
+        
         [HttpPost("Manager")]
         [Authorize(Roles = "Admin,Organizator")]
         public async Task<IActionResult> RegisterManager([FromBody] ManagerForCreationDTO managerForCreationDTO)
@@ -111,6 +115,9 @@ namespace UtilityApi.Controllers
                     var identity = (ClaimsIdentity)User.Identity;
                     var currenrtRegion = identity.FindFirst("RegionId").Value;
                     var currentRole = identity.FindFirst(ClaimTypes.Role).Value;
+                    managerForCreationDTO.CreatedDate = DateTime.Now;
+                    managerForCreationDTO.Creaetedby = Guid
+                        .Parse(identity.FindFirst(ClaimTypes.NameIdentifier).Value);
                     var manager = await _service.CreateAsync(managerForCreationDTO, currenrtRegion, currentRole);
                     if (manager != null)
                         return Ok(manager);
