@@ -27,7 +27,7 @@ namespace UtilityApi
             services.AddInfrastructure(Configuration);
             services.AddBusinessService();
             services.AddControllers();
-
+            services.AddCors();
 
             services.AddMvc();
             services.AddSwaggerGen(c =>
@@ -72,7 +72,7 @@ namespace UtilityApi
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseCors(builder => builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
